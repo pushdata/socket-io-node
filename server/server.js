@@ -20,9 +20,10 @@ io.on('connection', (socket) => {
 
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Joined!'));
 
-    socket.on('createMessage', (messageData) => {
+    socket.on('createMessage', (messageData, callback) => {
         console.log(messageData);
         socket.broadcast.emit('newMessage', generateMessage(messageData.from, messageData.text));
+        callback('Your message was sent!');
     })
     socket.on('disconnect', () => {
         console.log('User is disconnected')
